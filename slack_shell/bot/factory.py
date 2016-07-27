@@ -1,5 +1,6 @@
 # local imports
-from slack_shell import SlackShellBot, LOGGER
+from slack_shell import LOGGER
+from slack_shell.bot import SlackShellBot
 
 
 def create_bot(config):
@@ -14,8 +15,9 @@ def create_bot(config):
 
 def run_bot(bot):
     """Connect bot to server."""
-    APP_LOGGER.debug('Running SlackShellBot instance...')
+    LOGGER.debug('Running SlackShellBot instance...')
     bot.connect_rtm()
+    bot.listen()
     
 
 def validate_token(token):

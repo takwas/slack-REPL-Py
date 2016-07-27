@@ -7,9 +7,10 @@
 *zedstate*
 *.sqlite
 *~lock*
+nohup.out
 Log~
 log*
-nohup.out
+.logs
 gitnore
 temp.py
 backup*

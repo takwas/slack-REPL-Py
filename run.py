@@ -6,7 +6,7 @@ import sys
 
 # local imports
 from config import config_modes
-from slack_shell import setup_logger, APP_LOGGER
+from slack_shell import setup_logger, LOGGER
 from slack_shell.bot.factory import create_bot, run_bot
 
 # Create an instance* of the configuration mode to use,
@@ -21,9 +21,9 @@ config = config_modes.get(os.getenv('SLACKSHELLBOT_CONFIG', 'default'))()
 
 if __name__ == '__main__':
     setup_logger(config=config)  # initialize application logging
-    run_bot(create_bot(config=config), config)
+    run_bot(create_bot(config=config))
 
-    if APP_LOGGER:
-        APP_LOGGER.info('Shutting down gracefully...')
+    if LOGGER:
+        LOGGER.info('Shutting down gracefully...')
         logging.shutdown()
     sys.exit(0)

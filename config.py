@@ -36,12 +36,29 @@ class Config:
                         """.format(source_url=SOURCE_URL)
                         )
 
+    # Log configuration
+    LOG_DIR = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)), '.logs')
+    LOG_FILENAME = 'app_log.log'
+    LOG_FORMAT_STR = \
+        '\n%(asctime)s - %(name)s - %(levelname)6s: %(message)s'
+    
+    # Log file rotation scheduling
+    
+    # Valid values for rotation time:
+    #     'S','M','H','D','W0'-'W6','midnight'
+    LOG_ROTATION_TIME = 'midnight'
+    LOG_ROTATION_INTERVAL = 1  # Don't set to less than 1
+    LOG_BACKUP_COUNT = 10  # Don't set to less than 1
+
+
 # Configuration used during development
 class DevConfig(Config):
 
     DEBUG = True
     TOKEN = os.getenv('SLACKSHELLBOT_TOKEN_DEV', None)
     BOT_NAME = 'slack-shell'
+    TEST_CHANNEL = '#bot-test'
 
     def __repr__(self):
         return running_mode.format(mode='development')
@@ -53,6 +70,7 @@ class TestConfig(Config):
     TESTING = True
     TOKEN = os.getenv('SLACKSHELLBOT_TOKEN_TEST', None)
     BOT_NAME = 'slack-shell'
+    TEST_CHANNEL = '#bot-test'
 
     def __repr__(self):
         return running_mode.format(mode='testing')
